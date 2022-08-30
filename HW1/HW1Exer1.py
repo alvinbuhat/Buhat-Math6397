@@ -37,17 +37,10 @@ print('However, UU* doesnt generate an identity matrix as shown:',J)
 
 print('with error', K)
 
-#plt.figure(1)
 
-for k in range(U.shape[0]):
-    A = np.linalg.inv(U[:k,:k]) @ U[:k,:k]
-    C = np.linalg.norm(A-np.eye(k))
-    
-plt.plot(C) 
+C = [np.linalg.norm(U[:r,:r] @ np.linalg.inv(U[:r,:r]) - np.eye(r)) for r in range(U.shape[0])]
 
-
-#loss = [np.linalg.norm(U[:r,:r] @ np.linalg.inv(U[:r,:r]) - np.eye(r)) for r in range(U.shape[0])]
-
+plt.plot(C)
 
 
 

@@ -24,7 +24,7 @@ r = 10 #any number less than 1500
 
 I = np.linalg.inv(U[:r,:r]) @ U[:r,:r]
 J = U[:r,:r] @ np.linalg.inv(U[:r,:r])
-K = abs(I-J)
+K = np.linalg.norm(I-np.eye(r))
 
 
 
@@ -39,12 +39,15 @@ print('with error', K)
 
 #plt.figure(1)
 
-for k in range(1,r):
+for k in range(U.shape[0]):
     A = np.linalg.inv(U[:k,:k]) @ U[:k,:k]
-    B = U[:k,:k] @ np.linalg.inv(U[:k,:k])
-    C = abs(I-J)
+    C = np.linalg.norm(A-np.eye(k))
     
 plt.plot(C) 
+
+
+#loss = [np.linalg.norm(U[:r,:r] @ np.linalg.inv(U[:r,:r]) - np.eye(r)) for r in range(U.shape[0])]
+
 
 
 

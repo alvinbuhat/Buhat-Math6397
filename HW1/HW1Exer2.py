@@ -21,11 +21,9 @@ S = np.diag(S)
 
 x_0 = np.linalg.norm(A)
 
-RE = [abs((x_0/(np.linalg.norm(U[:,:r] @ S[0:r,:r] @ VT[:r,:]))) - 1) for r in range(1,len(S))]
+RE = [abs(((np.linalg.norm(U[:,:r] @ S[0:r,:r] @ VT[:r,:]))/x_0) - 1) for r in range(1,len(S))]
 
 
-
-plt.figure(figsize=(15,5))
 
 
 plt.title('Relative Reconstruction error, Missed Variance and Cumulative Sum')

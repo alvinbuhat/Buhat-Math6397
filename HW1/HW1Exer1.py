@@ -20,7 +20,7 @@ X = np.mean(A, -1); #mean of array from the image #mean around -1
 U, S, VT = np.linalg.svd(X,full_matrices=True)
 S = np.diag(S)
 
-r = 10 #any number less than 1500
+r = 500 #any number less than 1500
 
 I = np.linalg.inv(U[:r,:r]) @ U[:r,:r]
 J = U[:r,:r] @ np.linalg.inv(U[:r,:r])
@@ -40,7 +40,8 @@ print('with error', K)
 
 C = [np.linalg.norm(U[:r,:r] @ np.linalg.inv(U[:r,:r]) - np.eye(r)) for r in range(U.shape[0])]
 
-plt.plot(C)
+plt.yscale('log')
+plt.plot(C);
 
 
 

@@ -32,6 +32,4 @@ img.set_cmap('gray')
 plt.axis('off')
 plt.show()
 
-#plt.imshow(allPersons[:allPersons.shape[0]//6,:allPersons.shape[1]//6])
-
 U, S, VT = np.linalg.svd(allPersons, full_matrices=False)

@@ -19,11 +19,6 @@ U, S, VT = np.linalg.svd(A, full_matrices=True)
 
 plt.boxplot(np.array([np.linalg.svd(np.random.normal(size=(100,100)), full_matrices=True)[1] for i in range(100)]))
 
-#def my_median(S):
- ##   res = []
-   ##    res.append(np.median(S[:i+1]))
-    #return res
-
 
 for i in (50, 200, 500, 1000):
     S = np.linalg.svd(np.random.normal(size=(i,i)), full_matrices=True)[1]
@@ -31,7 +26,7 @@ for i in (50, 200, 500, 1000):
     plt.title(str(i)+' by' + str(i))
     plt.xlabel('r')
     mean = np.cumsum(S)/np.arange(1,len(S)+1)
-   # plt.plot(mean, label='mean')
-    median = np.median(S[0:i])
+    plt.plot(mean, label='mean')
+    median = np.median(S) #error
     plt.plot(median, label='median')
     plt.legend()

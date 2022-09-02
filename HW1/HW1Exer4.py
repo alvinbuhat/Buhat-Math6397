@@ -35,7 +35,7 @@ for i in (50, 200, 500, 1000):
     rng = np.arange(1, u + 1)
 
     plt.figure(i)
-    plt.title(str(i)+' by' + str(i))
+    plt.title(str(i)+' by ' + str(i))
     plt.xlabel('r')
     mean = np.cumsum(S1)/rng #command to get the mean 
     plt.plot(mean, label='mean')

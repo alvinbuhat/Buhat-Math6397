@@ -42,3 +42,4 @@ for i in (50, 200, 500, 1000):
     median =  smedian(S1) 
     plt.plot(rng, median, label='median')
     plt.legend()
+ 

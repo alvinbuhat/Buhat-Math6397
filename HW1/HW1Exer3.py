@@ -36,8 +36,23 @@ plt.show()
 
 U, S, VT = np.linalg.svd(allPersons, full_matrices=False) #compute the economy SVD
 
-#Compare the first 10 left singular vectors using each method
+#Using method of snapshots
 
-#Compare further vectors
+VS2VT = faces[:,:36].T @ faces[:,:36]  #XTX
 
-#Explain
+#computing SVD using MOS
+
+S2_MOS, V_MOS = np.linalg.eig(VS2VT) #sigma squared and V from MOS
+U_MOS = faces[:,:36] @ V_MOS @ np.linalg.inv(np.diag(np.sqrt(abs(S2_MOS)))) #U from MOS = X@V@Sigma from MOS inverse
+
+#Singular Values Comparison
+
+plt.figure(figsize=(10,5))
+plt.plot(S, label='SVD singular values')
+plt.plot(np.sqrt(abs(S2_MOS)),  label='MoS singular values')
+plt.yscale('log')
+plt.legend();
+
+
+#Compare the first 10 left singular vectors using each method and Compare further vectors
+#I am not sure how to do this part

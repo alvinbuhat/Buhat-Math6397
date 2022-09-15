@@ -137,7 +137,20 @@ plt.ylabel('Imaginary part')
 
 #Advance the state of w_k
 
-wk1 = [A**(k)@W[:,k] for k in range(W.shape[1])]
+wk = [A**(k)@W[:,0] for k in range(W.shape[1]+1)]
+
+#for i in range(W.shape[1]+1):
+#plt.figure(figsize=(10,5))
+#plt.imshow((U @ wk[:,0]).reshape(*n,*m))
+#plt.figure(figsize=(10,5))
+#plt.imshow((U @ wk[:,1]).reshape(*n,*m))
+#plt.figure(figsize=(10,5))
+#plt.imshow((U @ wk[:,2]).reshape(*n,*m))
+#plt.figure(figsize=(10,5))
+#plt.imshow((U @ wk[:,3]).reshape(*n,*m))
+#plt.figure(figsize=(10,5))
+#plt.imshow((U @ wk[:,10]).reshape(*n,*m))
+
 
 
 

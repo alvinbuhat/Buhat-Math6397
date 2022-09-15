@@ -96,19 +96,60 @@ plt.imshow((U[:,:r]@W[:r,:r])[:,1].reshape(*n,*m))
 #k=10
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
-plt.imshow((U_MoS @ np.diag(S_MoS) @ V_MoS)[:,10].reshape(*n,*m))
+plt.imshow((U_MoS @ np.diag(S_MoS) @ V_MoS)[:,9].reshape(*n,*m))
 
 
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
-plt.imshow((U[:,:r]@W[:r,:r])[:,10].reshape(*n,*m))
+plt.imshow((U[:,:r]@W[:r,:r])[:,9].reshape(*n,*m))
     
-
-
 
 #Build linear regression model
 
+W = (np.diag(S) @ VT)[:,:-1]
+Wp = (np.diag(S) @ VT)[:,1:] 
+
+U_w, S_w, VT_w = np.linalg.svd(W, full_matrices=False) 
+
+#pseudoinverse using SVD
+Pseu1 = VT_w.T @ np.linalg.inv(np.diag(S_w)) @ U_w.T
+
+#pseudoinverse using np function (for checking purposes)
+Pseu2 = np.linalg.pinv(W)
+
+A = Wp @ Pseu1
+
+#plot of the eigenvalues
+
+EV, _ = np.linalg.eig(A)
+
+
+EV_real = [ele.real for ele in EV]
+
+EV_img = [ele.imag for ele in EV]
+
+plt.figure(figsize=(10,5))
+plt.scatter(EV_real,EV_img)
+plt.xlabel('Real part')
+plt.ylabel('Imaginary part')
 
 
 
-#Advance the state w_k
+#Advance the state of w_k
+
+wk1 = [A**(k)@W[:,k] for k in range(W.shape[1])]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,15 +10,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import scipy.io
-
-
 from sklearn import decomposition
-
 
 
 plt.rcParams['figure.figsize'] = [10, 10]
 plt.rcParams.update({'font.size': 10})
 
+#A
 #Finding the SVD of VORTALL
 
 mat_contents = scipy.io.loadmat(os.path.join('CYLINDER_ALL.mat')) 
@@ -39,8 +37,6 @@ Z = pca.transform(Z)
 #singular value
 plt.semilogy(S)
 
-
-
 #spectrum
 plt.figure(figsize=(10,5))
 plt.imshow(U[:,0].reshape(*n,*m))
@@ -53,14 +49,14 @@ plt.imshow(U[:,3].reshape(*n,*m))
 plt.figure(figsize=(10,5))
 plt.imshow(U[:,4].reshape(*n,*m));
 
-
+#B
 #Write a code to plot for various truncated values
-for r in (2,3,10):
+for r in (2,3,10): #predetermined values but can do iteration if necessary
 
 
-    X = U[:,:r] @ np.diag(S)[:r,:r] @ VT[:r,:r]
+    X = U[:,:r] @ np.diag(S)[:r,:r] @ VT[:r,:r] #Truncation
 
-    pca = decomposition.PCA(n_components = 1)
+    pca = decomposition.PCA(n_components = 1) #PCA to compute for fluid flow movie
     pca.fit(X)
     X = pca.transform(X)
     y = pca.explained_variance_ratio_
@@ -71,7 +67,7 @@ for r in (2,3,10):
     plt.imshow(X[:,0].reshape(*n,*m))
 
 
-
+#C
 #Fix r and compute for truncated SVD
 
 #truncated matrix

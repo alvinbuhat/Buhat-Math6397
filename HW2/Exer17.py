@@ -82,23 +82,25 @@ S2_MoS, V_MoS = np.linalg.eig(V_S2_VT)
 S_MoS = np.sqrt(abs(S2_MoS))
 U_MoS = vortall[:,:r] @ V_MoS @ np.linalg.inv(np.diag(S_MoS))
 
-#plot comparison
+#plot comparison of kth snapshot with Uwk
 #k=1
+#snapshot
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
 plt.imshow((U_MoS @ np.diag(S_MoS) @ V_MoS)[:,1].reshape(*n,*m))
 
-
+#Uwk
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
 plt.imshow((U[:,:r]@W[:r,:r])[:,1].reshape(*n,*m))
 
 #k=10
+#snapshot
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
 plt.imshow((U_MoS @ np.diag(S_MoS) @ V_MoS)[:,9].reshape(*n,*m))
 
-
+#Uwk
 plt.figure(figsize=(10,5))
 plt.set_cmap('twilight')
 plt.imshow((U[:,:r]@W[:r,:r])[:,9].reshape(*n,*m))
@@ -116,6 +118,8 @@ Pseu1 = VT_w.T @ np.linalg.inv(np.diag(S_w)) @ U_w.T
 
 #pseudoinverse using np function (for checking purposes)
 Pseu2 = np.linalg.pinv(W)
+
+#Compute for A
 
 A = Wp @ Pseu1
 
@@ -137,32 +141,32 @@ plt.ylabel('Imaginary part')
 
 #Advance the state of w_k
 
-wk = [A**(k)@W[:,0] for k in range(W.shape[1]+1)]
+wk = np.array([A**(k)@W[:,0] for k in range(W.shape[1]+1)])
 
+#Plot the reconstructed flow field
 #for i in range(W.shape[1]+1):
-#plt.figure(figsize=(10,5))
-#plt.imshow((U @ wk[:,0]).reshape(*n,*m))
-#plt.figure(figsize=(10,5))
-#plt.imshow((U @ wk[:,1]).reshape(*n,*m))
-#plt.figure(figsize=(10,5))
-#plt.imshow((U @ wk[:,2]).reshape(*n,*m))
-#plt.figure(figsize=(10,5))
-#plt.imshow((U @ wk[:,3]).reshape(*n,*m))
-#plt.figure(figsize=(10,5))
-#plt.imshow((U @ wk[:,10]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ wk[:,0]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ wk[:,3]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ wk[:,5]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ wk[:,7]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ wk[:,10]).reshape(*n,*m))
 
 
+#Compare with true values
 
-
-
-
-
-
-
-
-
-
-
-
-
+plt.figure(figsize=(10,5))
+plt.imshow((U @ W[:,0]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ W[:,3]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ W[:,5]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ W[:,7]).reshape(*n,*m))
+plt.figure(figsize=(10,5))
+plt.imshow((U @ W[:,10]).reshape(*n,*m))
 
